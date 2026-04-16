@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getTelegram } from "../hooks/useTelegram.js";
-import { setupLocalGame, type LocalPlayer } from "../hooks/useLocalGame.js";
+import { setupLocalGame, LOCATION_PACKS, type LocalPlayer } from "../hooks/useLocalGame.js";
 
 interface Props {
   initialNames?: string[];
@@ -17,6 +17,9 @@ export function LocalSetup({ initialNames, onStart, onBack }: Props) {
   const [spyCount, setSpyCount] = useState(1);
   const [timerEnabled, setTimerEnabled] = useState(true);
   const [timerMinutes, setTimerMinutes] = useState(5);
+  const [selectedPacks, setSelectedPacks] = useState<Set<string>>(
+    new Set(LOCATION_PACKS.map((p) => p.id))
+  );
 
   useEffect(() => {
     const tg = getTelegram();
@@ -40,11 +43,29 @@ export function LocalSetup({ initialNames, onStart, onBack }: Props) {
     setNames(updated);
   };
 
+  const togglePack = (id: string) => {
+    const next = new Set(selectedPacks);
+    if (next.has(id)) {
+      if (next.size > 1) next.delete(id);
+    } else {
+      next.add(id);
+    }
+    setSelectedPacks(next);
+  };
+
+  const totalLocations = LOCATION_PACKS
+    .filter((p) => selectedPacks.has(p.id))
+    .reduce((sum, p) => sum + p.locations.length, 0);
+
   const validNames = names.filter((n) => n.trim().length > 0);
   const canStart = validNames.length >= 3 && spyCount < validNames.length;
 
   const handleStart = () => {
-    const { players, location } = setupLocalGame(validNames, spyCount);
+    const { players, location } = setupLocalGame(
+      validNames,
+      spyCount,
+      [...selectedPacks]
+    );
     const timer = timerEnabled ? timerMinutes * 60 : null;
     onStart(players, location, timer);
   };
@@ -55,7 +76,7 @@ export function LocalSetup({ initialNames, onStart, onBack }: Props) {
       <p className="page-subtitle">Минимум 3 игрока</p>
 
       <div style={{ marginBottom: 16 }}>
-        <label style={{ fontSize: 14, fontWeight: 600, marginBottom: 8, display: "block" }}>
+        <label style={{ fontSize: 13, fontWeight: 500, marginBottom: 8, display: "block", color: "var(--text-secondary)", textTransform: "uppercase", letterSpacing: "0.03em" }}>
           Игроки
         </label>
         <ul className="player-list">
@@ -81,6 +102,43 @@ export function LocalSetup({ initialNames, onStart, onBack }: Props) {
             + Добавить игрока
           </button>
         )}
+      </div>
+
+      <div style={{ marginBottom: 16 }}>
+        <label style={{ fontSize: 13, fontWeight: 500, marginBottom: 10, display: "block", color: "var(--text-secondary)", textTransform: "uppercase", letterSpacing: "0.03em" }}>
+          Локации ({totalLocations} шт.)
+        </label>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+          {LOCATION_PACKS.map((pack) => (
+            <button
+              key={pack.id}
+              onClick={() => togglePack(pack.id)}
+              style={{
+                padding: "10px 16px",
+                borderRadius: "var(--radius-sm)",
+                border: selectedPacks.has(pack.id)
+                  ? "1px solid var(--accent-gold)"
+                  : "1px solid var(--border-glass)",
+                background: selectedPacks.has(pack.id)
+                  ? "var(--accent-gold-soft)"
+                  : "var(--bg-glass)",
+                color: selectedPacks.has(pack.id)
+                  ? "var(--accent-gold)"
+                  : "var(--text-secondary)",
+                fontSize: 14,
+                fontWeight: 500,
+                cursor: "pointer",
+                fontFamily: "inherit",
+                transition: "all 0.2s",
+                boxShadow: selectedPacks.has(pack.id)
+                  ? "0 0 20px rgba(212, 168, 67, 0.1)"
+                  : "none",
+              }}
+            >
+              {pack.emoji} {pack.name}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div style={{ marginBottom: 16 }}>
