@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: spion-game
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build && npm run db:seed
+    startCommand: npm start
+    envVars:
+      - key: BOT_TOKEN
+        sync: false
+      - key: NODE_ENV
+        value: production

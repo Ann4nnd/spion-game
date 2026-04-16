@@ -1,0 +1,9 @@
+node_modules/
+dist/
+dist-node/
+*.tsbuildinfo
+*.db
+*.db-journal
+.env
+.env.local
+.claude/

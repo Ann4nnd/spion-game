@@ -1,0 +1,19 @@
+{
+  "name": "spion",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "shared",
+    "server",
+    "bot",
+    "web"
+  ],
+  "scripts": {
+    "dev:server": "npm run dev --workspace=server",
+    "dev:bot": "npm run dev --workspace=bot",
+    "dev:web": "npm run dev --workspace=web",
+    "build": "npm run build --workspace=web && npm run db:generate --workspace=server",
+    "start": "npm run start --workspace=server",
+    "db:seed": "npm run db:seed --workspace=server"
+  }
+}

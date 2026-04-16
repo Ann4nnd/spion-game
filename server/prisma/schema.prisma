@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:../spion.db"
+}
+
+model Game {
+  id           String   @id @default(uuid())
+  code         String   @unique
+  mode         String   // "online" | "local"
+  status       String   @default("lobby")
+  hostId       String
+  spyCount     Int      @default(1)
+  timerSeconds Int?
+  location     String?
+  createdAt    DateTime @default(now())
+  players      Player[]
+}
+
+model Player {
+  id     String  @id @default(uuid())
+  gameId String
+  userId String
+  name   String
+  role   String? // "spy" | "citizen"
+  vote   String? // target player id
+  game   Game    @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+  @@unique([gameId, userId])
+}
+
+model LocationPack {
+  id        String     @id @default(uuid())
+  name      String
+  isDefault Boolean    @default(false)
+  createdBy String?
+  locations Location[]
+}
+
+model Location {
+  id     String       @id @default(uuid())
+  name   String
+  packId String
+  pack   LocationPack @relation(fields: [packId], references: [id], onDelete: Cascade)
+}
