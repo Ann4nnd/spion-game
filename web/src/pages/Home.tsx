@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import { getTelegram } from "../hooks/useTelegram.js";
 
 interface Props {
-  onLocal: () => void;
-  onOnline: () => void;
+  onSpy: () => void;
+  onMafia: () => void;
 }
 
-export function Home({ onLocal, onOnline }: Props) {
+export function Home({ onSpy, onMafia }: Props) {
   useEffect(() => {
     const tg = getTelegram();
     tg?.ready();
@@ -16,27 +16,25 @@ export function Home({ onLocal, onOnline }: Props) {
 
   return (
     <div className="page">
-      <div style={{ textAlign: "center", margin: "32px 0 16px" }}>
-        <div style={{ fontSize: 64 }}>🕵️</div>
+      <div style={{ textAlign: "center", margin: "24px 0 8px" }}>
+        <div style={{ fontSize: 56 }}>🎭</div>
       </div>
-      <h1 className="page-title">Шпион</h1>
-      <p className="page-subtitle">
-        Найди шпиона среди своих друзей!
-      </p>
+      <h1 className="page-title">Пати Геймс</h1>
+      <p className="page-subtitle">Игры для компании в Telegram</p>
 
-      <div className="card mode-card" onClick={onOnline}>
-        <div className="mode-icon">🌐</div>
-        <div className="card-title">Онлайн</div>
+      <div className="card mode-card" onClick={onSpy}>
+        <div className="mode-icon">🕵️</div>
+        <div className="card-title">Шпион</div>
         <div className="card-text">
-          Каждый играет на своём устройстве. Роли приходят приватно.
+          Найди шпиона среди своих друзей. Кто не знает локацию?
         </div>
       </div>
 
-      <div className="card mode-card" onClick={onLocal}>
-        <div className="mode-icon">📱</div>
-        <div className="card-title">Одно устройство</div>
+      <div className="card mode-card" onClick={onMafia}>
+        <div className="mode-icon">🔫</div>
+        <div className="card-title">Мафия</div>
         <div className="card-text">
-          Передавайте телефон по кругу. Каждый смотрит свою роль.
+          Классика! Ночь, день, голосование. Вычисли мафию.
         </div>
       </div>
     </div>
