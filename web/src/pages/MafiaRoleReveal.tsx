@@ -49,8 +49,21 @@ export function MafiaRoleReveal({ players, onDone }: Props) {
               <div className="role-title">{info.name}</div>
               <div className="role-location">{info.description}</div>
             </div>
+            {isLast && (
+              <p
+                style={{
+                  fontSize: 14,
+                  color: "var(--text-secondary)",
+                  textAlign: "center",
+                  maxWidth: 320,
+                  marginTop: -8,
+                }}
+              >
+                Запомни свою роль. Сейчас все положат телефон на стол и закроют глаза.
+              </p>
+            )}
             <button className="btn btn-primary" onClick={next}>
-              {isLast ? "Все посмотрели — начать ночь" : "Понял, дальше"}
+              {isLast ? "Готов — начать ночь" : "Понял, дальше"}
             </button>
           </>
         )}
