@@ -391,6 +391,72 @@ body::before {
   background: radial-gradient(ellipse at 50% 20%, rgba(52, 211, 153, 0.1) 0%, transparent 60%);
 }
 
+.role-card.mafia {
+  background: linear-gradient(160deg, #2a0a0f 0%, #1a0508 50%, #200a10 100%);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  box-shadow: 0 0 40px rgba(239, 68, 68, 0.15), inset 0 1px 0 rgba(239, 68, 68, 0.1);
+  color: #fff;
+}
+
+.role-card.mafia::before {
+  background: radial-gradient(ellipse at 50% 20%, rgba(239, 68, 68, 0.12) 0%, transparent 60%);
+}
+
+.role-card.villager {
+  background: linear-gradient(160deg, #0a1a15 0%, #0a1510 50%, #0f1a18 100%);
+  border: 1px solid rgba(52, 211, 153, 0.2);
+  box-shadow: var(--shadow-glow-emerald), inset 0 1px 0 rgba(52, 211, 153, 0.1);
+  color: #fff;
+}
+
+.role-card.villager::before {
+  background: radial-gradient(ellipse at 50% 20%, rgba(52, 211, 153, 0.1) 0%, transparent 60%);
+}
+
+.role-card.doctor {
+  background: linear-gradient(160deg, #0a1520 0%, #0a1028 50%, #0f1630 100%);
+  border: 1px solid rgba(96, 165, 250, 0.25);
+  box-shadow: 0 0 40px rgba(96, 165, 250, 0.15), inset 0 1px 0 rgba(96, 165, 250, 0.1);
+  color: #fff;
+}
+
+.role-card.doctor::before {
+  background: radial-gradient(ellipse at 50% 20%, rgba(96, 165, 250, 0.12) 0%, transparent 60%);
+}
+
+.role-card.cop {
+  background: linear-gradient(160deg, #1a1520 0%, #0f0a18 50%, #1a0f10 100%);
+  border: 1px solid rgba(212, 168, 67, 0.25);
+  box-shadow: var(--shadow-glow-gold), inset 0 1px 0 rgba(212, 168, 67, 0.1);
+  color: #fff;
+}
+
+.role-card.cop::before {
+  background: radial-gradient(ellipse at 50% 20%, rgba(212, 168, 67, 0.12) 0%, transparent 60%);
+}
+
+.results-banner.mafia-wins {
+  background: linear-gradient(160deg, #2a0a0f 0%, #1a0508 100%);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  box-shadow: 0 0 40px rgba(239, 68, 68, 0.15);
+  color: #fff;
+}
+
+.results-banner.mafia-wins::before {
+  background: radial-gradient(ellipse at 50% 30%, rgba(239, 68, 68, 0.14) 0%, transparent 60%);
+}
+
+.results-banner.villagers-win {
+  background: linear-gradient(160deg, #0a1a15 0%, #0a1510 100%);
+  border: 1px solid rgba(52, 211, 153, 0.2);
+  box-shadow: var(--shadow-glow-emerald);
+  color: #fff;
+}
+
+.results-banner.villagers-win::before {
+  background: radial-gradient(ellipse at 50% 30%, rgba(52, 211, 153, 0.12) 0%, transparent 60%);
+}
+
 .role-emoji {
   font-size: 56px;
   margin-bottom: 16px;
