@@ -46,3 +46,12 @@ model Location {
   packId String
   pack   LocationPack @relation(fields: [packId], references: [id], onDelete: Cascade)
 }
+
+model BotUser {
+  id         String   @id @default(uuid())
+  telegramId String   @unique
+  firstName  String?
+  username   String?
+  joinedAt   DateTime @default(now())
+  lastSeen   DateTime @default(now())
+}
