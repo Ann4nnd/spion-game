@@ -752,3 +752,191 @@ body::after {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 2px;
 }
+
+/* ========== Word of Day ========== */
+
+.wod-page {
+  padding-bottom: 8px;
+}
+
+.wod-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  margin: 16px 0;
+  perspective: 600px;
+}
+
+.wod-grid.shake .wod-row:not(:has(.correct)):not(:has(.present)):not(:has(.absent)) {
+  animation: wodShake 0.4s;
+}
+
+@keyframes wodShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+.wod-row {
+  display: flex;
+  gap: 6px;
+}
+
+.wod-cell {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+  border: 2px solid var(--border-glass);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  font-family: 'Inter', sans-serif;
+  transition: transform 0.2s, background-color 0.4s, border-color 0.4s;
+}
+
+.wod-cell.filled {
+  border-color: rgba(255, 255, 255, 0.3);
+  animation: wodPop 0.15s ease-out;
+}
+
+@keyframes wodPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+.wod-cell.correct {
+  background: linear-gradient(160deg, #15803d, #166534);
+  border-color: #15803d;
+  color: #fff;
+  animation: wodFlip 0.5s ease-in-out;
+}
+
+.wod-cell.present {
+  background: linear-gradient(160deg, #b8922e, #9a7a26);
+  border-color: #b8922e;
+  color: #fff;
+  animation: wodFlip 0.5s ease-in-out;
+}
+
+.wod-cell.absent {
+  background: rgba(40, 40, 50, 0.6);
+  border-color: rgba(40, 40, 50, 0.6);
+  color: var(--text-secondary);
+  animation: wodFlip 0.5s ease-in-out;
+}
+
+@keyframes wodFlip {
+  0% { transform: rotateX(0); }
+  50% { transform: rotateX(90deg); }
+  100% { transform: rotateX(0); }
+}
+
+.wod-result {
+  text-align: center;
+  margin: 12px 0;
+  padding: 16px;
+  background: var(--bg-glass);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(20px);
+  animation: pageEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.wod-result-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.wod-result-word {
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+  letter-spacing: 0.05em;
+}
+
+.wod-result-word strong {
+  color: var(--accent-gold);
+  font-size: 18px;
+}
+
+.wod-keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.wod-key-row {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+}
+
+.wod-key {
+  flex: 1;
+  min-width: 0;
+  height: 50px;
+  border: none;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 0 2px;
+}
+
+.wod-key:active {
+  transform: scale(0.94);
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.wod-key.wide {
+  flex: 1.6;
+  font-size: 14px;
+}
+
+.wod-key.correct {
+  background: #15803d;
+  color: #fff;
+}
+
+.wod-key.present {
+  background: #b8922e;
+  color: #fff;
+}
+
+.wod-key.absent {
+  background: rgba(40, 40, 50, 0.6);
+  color: var(--text-muted);
+}
+
+.wod-toast {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(20, 20, 30, 0.95);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid var(--border-glass);
+  backdrop-filter: blur(20px);
+  z-index: 100;
+  animation: pageEnter 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
