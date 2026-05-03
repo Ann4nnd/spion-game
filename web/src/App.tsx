@@ -15,6 +15,7 @@ import { MafiaDay } from "./pages/MafiaDay.js";
 import { MafiaVoting } from "./pages/MafiaVoting.js";
 import { MafiaKickReveal } from "./pages/MafiaKickReveal.js";
 import { MafiaResults } from "./pages/MafiaResults.js";
+import { WordOfDay } from "./pages/WordOfDay.js";
 import type { LocalPlayer } from "./hooks/useLocalGame.js";
 import {
   type MafiaGameState,
@@ -39,7 +40,8 @@ type Screen =
   | { name: "mafia-day"; state: MafiaGameState }
   | { name: "mafia-voting"; state: MafiaGameState }
   | { name: "mafia-kick-reveal"; state: MafiaGameState }
-  | { name: "mafia-results"; state: MafiaGameState; winner: "mafia" | "villagers" };
+  | { name: "mafia-results"; state: MafiaGameState; winner: "mafia" | "villagers" }
+  | { name: "word-of-day" };
 
 export function App() {
   const [screen, setScreen] = useState<Screen>({ name: "home" });
@@ -50,8 +52,12 @@ export function App() {
         <Home
           onSpy={() => setScreen({ name: "spy-mode-choice" })}
           onMafia={() => setScreen({ name: "mafia-setup" })}
+          onWordOfDay={() => setScreen({ name: "word-of-day" })}
         />
       );
+
+    case "word-of-day":
+      return <WordOfDay onBack={() => setScreen({ name: "home" })} />;
 
     case "spy-mode-choice":
       return (

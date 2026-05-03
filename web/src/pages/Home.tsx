@@ -4,9 +4,10 @@ import { getTelegram } from "../hooks/useTelegram.js";
 interface Props {
   onSpy: () => void;
   onMafia: () => void;
+  onWordOfDay: () => void;
 }
 
-export function Home({ onSpy, onMafia }: Props) {
+export function Home({ onSpy, onMafia, onWordOfDay }: Props) {
   useEffect(() => {
     const tg = getTelegram();
     tg?.ready();
@@ -35,6 +36,14 @@ export function Home({ onSpy, onMafia }: Props) {
         <div className="card-title">Мафия</div>
         <div className="card-text">
           Классика! Ночь, день, голосование. Вычисли мафию.
+        </div>
+      </div>
+
+      <div className="card mode-card" onClick={onWordOfDay}>
+        <div className="mode-icon">📝</div>
+        <div className="card-title">Слово дня</div>
+        <div className="card-text">
+          Угадай слово за 6 попыток. Новое слово каждый день.
         </div>
       </div>
     </div>
